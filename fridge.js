@@ -22,7 +22,7 @@ rgb.refresh = function () {
 		var k = Number.between(-5, 10);
 		rgb[i] = (v + k <= 255 && v + k >= 0) ? v + k : v;
 	});
-	return this;
+	return this.concat(); // cloning the array.
 };
 
 // generating magnets based on alphabet.
