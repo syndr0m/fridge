@@ -72,17 +72,14 @@ $(document).ready(function () {
 	};
 	// Update One Magnet
 	now.updateMagnet = function (magnetId, top, left) {
-		console.log("<=updateMagnet ("+magnetId+", "+top+", "+left+")");
 		$("#"+magnetId).offset({ 'top' : top, 'left' : left});
 	};
 	// One Magnet has been acquired
 	now.magnetAcquired = function (id) {
-		console.log("<=magnetAcquired ("+id+")");
 		acquiredMagnetId = id;
 	};
 	// One Magnet has been lost
 	now.magnetLost = function (id) {
-		console.log("<=magnetLost ("+id+")");
 		acquiredMagnetId = null;
 	};
 	now.ready(function () { now.requestMagnets(); });
