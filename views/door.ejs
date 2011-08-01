@@ -1,0 +1,94 @@
+<html>
+<head>
+<title>fridge magnets</title>
+<style type="text/css">
+	body { background-color:#333333; font-weight:bold; font-size:45;}
+	div { cursor:pointer; 
+		/* text non selectable */
+		-webkit-user-select: none;
+		-khtml-user-select: none;
+		-moz-user-select: none;
+		-o-user-select: none;
+		user-select: none;
+	}
+</style>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+<!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js"></script> -->
+<script type="text/javascript" src="/nowjs/now.js"></script>
+<script type="text/javascript">
+
+var delay = 50; // ms between refresh.
+
+/*
+ * Nowjs magic
+ */
+$(document).ready(function () {
+	// magnet we can move.
+	var pageX, pageY, offset
+		, lastMove = null, acquiredMagnetId = null;
+	
+	// Update All Magnets.
+	now.updateMagnets = function (magnets) {
+		$("body").empty();
+		$.each(magnets, function (i, magnet) {
+			$('<div>'+magnet.d+'</div>')
+				.attr('id', magnet.i)
+				.css('position', 'absolute')
+				.css('color', 'rgb('+magnet.c[0]+', '+magnet.c[1]+', '+magnet.c[2]+')')
+				.css('-moz-transform', 'rotate('+magnet.a+'deg)')
+				.css('-webkit-transform', 'rotate('+magnet.a+'deg)')
+				.css('top', magnet.t)
+				.css('left', magnet.l)
+				.appendTo($("body"));
+		});
+		// bind first mousedown
+		$("div").mousedown(function (ev) {
+			var magnet = $(ev.target);
+			offset = magnet.offset();
+			pageX = ev.pageX;
+			pageY = ev.pageY;
+			now.acquireMagnet(magnet.attr("id"));
+		});
+		$("body").mousemove(function (ev) {
+			ev.stopPropagation();
+			//
+			if (acquiredMagnetId == null)
+				return;
+			// 
+			var currentDate = new Date();
+			if (!lastMove || currentDate.getTime() > lastMove + delay) {
+				lastMove = currentDate.getTime();
+				now.moveMagnet(acquiredMagnetId
+					, offset.top + Math.round(ev.pageY-pageY)
+					, offset.left + Math.round(ev.pageX-pageX)
+				);
+			}
+		});
+		$("body").mouseup(function (ev) {
+			ev.stopPropagation();
+			//
+			acquiredMagnetId = null;
+		});
+	};
+	// Update One Magnet
+	now.updateMagnet = function (magnetId, top, left) {
+		console.log("<=updateMagnet ("+magnetId+", "+top+", "+left+")");
+		$("#"+magnetId).offset({ 'top' : top, 'left' : left});
+	};
+	// One Magnet has been acquired
+	now.magnetAcquired = function (id) {
+		console.log("<=magnetAcquired ("+id+")");
+		acquiredMagnetId = id;
+	};
+	// One Magnet has been lost
+	now.magnetLost = function (id) {
+		console.log("<=magnetLost ("+id+")");
+		acquiredMagnetId = null;
+	};
+	now.ready(function () { now.requestMagnets(); });
+});
+</script>
+</head>
+<body>
+</body>
+</html>
