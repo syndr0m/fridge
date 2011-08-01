@@ -30,7 +30,7 @@ var magnetsById = {}, magnets =
 "AAAABBCCDDEEEEFFGGHHIIIJJKKLLMMNNOOOPPQQRRSSTTUUUVVWXYZ☺⬅⬆⬇⬈⬉⬊⬋⬌⬍'|-_"
 	.split('')
 	.map(function (magnet, i) {
-		return { 'id' : magnet+i															// id
+		return { 'id' : 'm'+i																// id
 			, 'data' : magnet																	// data
 			, 'angle' : Number.between(-10, 10)											// angle
 			, 'top' : Number.between(boardMargin, boardHeight-boardMargin)		// top
