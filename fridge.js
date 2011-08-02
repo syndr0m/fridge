@@ -103,4 +103,11 @@ everyone.now.releaseMagnet = function (magnetId) {
 		magnetsById[magnetId].owner = null;
 };
 
+// when a user disconnect, release all his magnets
+nowjs.on('disconnect', function () {
+	var clientId = this.user.clientId;
+	magnets.filter(function (m) { return m.owner == clientId })
+			 .forEach(function (m) { m.owner = null });
+});
+
 server.listen(80);
