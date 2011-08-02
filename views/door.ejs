@@ -37,6 +37,7 @@ $(document).ready(function () {
 		$.each(magnets, function (i, magnet) {
 			$('<div>'+magnet.d+'</div>')
 				.attr('id', magnet.i)
+				.attr('unselectable', 'on')
 				.css('position', 'absolute')
 				.css('color', 'rgb('+magnet.c[0]+', '+magnet.c[1]+', '+magnet.c[2]+')')
 				.css('-moz-transform', 'rotate('+magnet.a+'deg)')
