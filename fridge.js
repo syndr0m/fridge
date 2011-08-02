@@ -77,22 +77,22 @@ everyone.now.acquireMagnet = function (magnetId) {
 	console.log(new Date()+'<= client '+this.user.clientId+' acquireMagnet('+magnetId+')');
 	// a client can only acquire 1 magnet at time.
 	var userNow = this.now;
-	var userId = this.user.clientId;
-	var userMagnet = magnets.filter(function (m) { 
-		return m.owner == userId;
-	}).forEach(function (m) {
-		// reseting owner
-		m.owner = null;
-		// sending order to disable drag&drop on magnet
-		console.log(new Date()+'=> client '+userId+' magnetLost('+m.id+')');
-		userNow.magnetLost(m.id);
-	});
+	var clientId = this.user.clientId;
+	
+	magnets.filter(function (m) { return m.owner == clientId })
+			 .forEach(function (m) {
+					// reseting owner
+					m.owner = null;
+					// sending order to disable drag&drop on magnet
+					console.log(new Date()+'=> client '+clientId+' magnetLost('+m.id+')');
+					userNow.magnetLost(m.id);
+				});
 	// acquiring magnet
 	if (magnetsById[magnetId].owner == null)
 	{
 		// sending order to enable drag&drop on magnet
-		magnetsById[magnetId].owner = userId;
-		console.log(new Date()+'=> client '+userId+' magnetAcquired('+magnetId+')');
+		magnetsById[magnetId].owner = clientId;
+		console.log(new Date()+'=> client '+clientId+' magnetAcquired('+magnetId+')');
 		userNow.magnetAcquired(magnetId);
 	}
 };
