@@ -24,7 +24,7 @@ var delay = 50; // ms between refresh.
  */
 $(document).ready(function () {
 	// magnet we can move.
-	var pageX, pageY, offset
+	var pageX, pageY, magnet, offset
 		, lastMove = null, acquiredMagnetId = null;
 	
 	// Update All Magnets.
@@ -43,7 +43,7 @@ $(document).ready(function () {
 		});
 		// bind first mousedown
 		$("div").mousedown(function (ev) {
-			var magnet = $(ev.target);
+			magnet = $(ev.target);
 			offset = magnet.offset();
 			pageX = ev.pageX;
 			pageY = ev.pageY;
@@ -54,14 +54,15 @@ $(document).ready(function () {
 			//
 			if (acquiredMagnetId == null)
 				return;
-			// 
+			// refreshing the browser every events.
+			var top = offset.top + Math.round(ev.pageY-pageY);
+			var left = offset.left + Math.round(ev.pageX-pageX);
+			magnet.offset({'top' : top, 'left' : left});
+			// but updating server information only each 50ms
 			var currentDate = new Date();
 			if (!lastMove || currentDate.getTime() > lastMove + delay) {
 				lastMove = currentDate.getTime();
-				now.moveMagnet(acquiredMagnetId
-					, offset.top + Math.round(ev.pageY-pageY)
-					, offset.left + Math.round(ev.pageX-pageX)
-				);
+				now.moveMagnet(acquiredMagnetId, top, left);
 			}
 		});
 		$(document).mouseup(function (ev) {
