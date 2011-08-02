@@ -5,7 +5,7 @@ var express = require('express')
 // initialising express
 server.get('*', function(req, res) { res.render('door.ejs', {layout:false}); });
 // initialising nowjs
-var clients = [], everyone = nowjs.initialize(server);
+var everyone = nowjs.initialize(server);
 
 // helper
 Number.between = function (min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
@@ -43,7 +43,7 @@ magnets.forEach(function (m) { magnetsById[m.id] = m; });
 
 // browser is requesting magnets
 everyone.now.requestMagnets = function () {
-	console.log('client '+this.user.clientId+' requestMagnets()');
+	console.log(new Date()+'client '+this.user.clientId+' (IP-unknown) requestMagnets()');
 	// sending magnets descriptor to the browser
 	this.now.updateMagnets(magnets.map(function (o) {
 		// minify
@@ -59,7 +59,7 @@ everyone.now.requestMagnets = function () {
 
 // browser is moving a magnet
 everyone.now.moveMagnet = function (magnetId, top, left) {
-	console.log('<= client '+this.user.clientId+' moveMagnet('+magnetId+', '+top+', '+left+')');
+	console.log(new Date()+'<= client '+this.user.clientId+' moveMagnet('+magnetId+', '+top+', '+left+')');
 	magnetsById[magnetId].top = top;
 	magnetsById[magnetId].left = left; 
 	everyone.now.updateMagnet(magnetId, top, left);
@@ -68,7 +68,7 @@ everyone.now.moveMagnet = function (magnetId, top, left) {
 // semaphore: acquireMagnet/releaseMagnet prevent several users 
 //  from moving the same magnet at a time
 everyone.now.acquireMagnet = function (magnetId) {
-	console.log('<= client '+this.user.clientId+' acquireMagnet('+magnetId+')');
+	console.log(new Date()+'<= client '+this.user.clientId+' acquireMagnet('+magnetId+')');
 	// a client can only acquire 1 magnet at time.
 	var userNow = this.now;
 	var userId = this.user.clientId;
@@ -78,6 +78,7 @@ everyone.now.acquireMagnet = function (magnetId) {
 		// reseting owner
 		m.owner = null;
 		// sending order to disable drag&drop on magnet
+		console.log(new Date()+'=> client '+this.user.clientId+' magnetLost('+m.id+')');
 		userNow.magnetLost(m.id);
 	});
 	// acquiring magnet
@@ -85,12 +86,9 @@ everyone.now.acquireMagnet = function (magnetId) {
 	{
 		// sending order to enable drag&drop on magnet
 		magnetsById[magnetId].owner = userId;
+		console.log(new Date()+'=> client '+this.user.clientId+' magnetAcquired('+magnetId+')');
 		userNow.magnetAcquired(magnetId);
 	}
 };
-
-// managing clients.
-nowjs.on('connect', function () { clients.push(this.user.clientId); });
-nowjs.on('disconnect', function () { delete clients[this.user.clientId]; });
 
 server.listen(80);
