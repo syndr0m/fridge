@@ -36,13 +36,13 @@ var magnetsById = {}, magnets =
 "AAAABBCCDDEEEEFFGGHHIIIJJKKLLMMNNOOOPPQQRRSSTTUUUVVWXYZ☺⬅⬆⬇⬈⬉⬊⬋⬌⬍'|-_"
 	.split('')
 	.map(function (magnet, i) {
-		return { 'id' : 'm'+i																// id
-			, 'data' : magnet																	// data
-			, 'angle' : Number.between(-10, 10)											// angle
-			, 'top' : Number.between(boardMargin, boardHeight-boardMargin)		// top
-			, 'left' : Number.between(boardMargin, boardWidth-boardMargin)		// left
-			, 'color' : rgb.refresh()														// color
-			, 'owner' : null																	// clientId, used for semaphore
+		return { 'id' : 'm'+i
+			, 'data' : magnet
+			, 'angle' : Number.between(-10, 10)
+			, 'top' : Number.between(boardMargin, boardHeight-boardMargin)
+			, 'left' : Number.between(boardMargin, boardWidth-boardMargin)
+			, 'color' : rgb.refresh()
+			, 'owner' : null // clientId, used for semaphore
 		}
 	})
 magnets.forEach(function (m) { magnetsById[m.id] = m })
