@@ -56,7 +56,6 @@ $(document).ready(function () {
 		});
 		$(document).mousemove(function (ev) {
 			ev.stopPropagation();
-			//
 			if (acquiredMagnetId == null)
 				return;
 			// refreshing the browser every events.
@@ -73,7 +72,10 @@ $(document).ready(function () {
 		$(document).mouseup(function (ev) {
 			ev.stopPropagation();
 			//
-			acquiredMagnetId = null;
+			if (acquiredMagnetId) {
+				now.releaseMagnet(acquiredMagnetId);
+				acquiredMagnetId = null;
+			}
 		});
 	};
 	// Update One Magnet

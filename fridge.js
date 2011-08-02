@@ -97,4 +97,10 @@ everyone.now.acquireMagnet = function (magnetId) {
 	}
 };
 
+everyone.now.releaseMagnet = function (magnetId) {
+	console.log(new Date()+'<= client '+this.user.clientId+' releaseMagnet('+magnetId+')');
+	if (magnetsById[magnetId].owner = this.user.clientId)
+		magnetsById[magnetId].owner = null;
+};
+
 server.listen(80);
