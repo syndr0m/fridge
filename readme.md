@@ -1,6 +1,6 @@
-# Basic fridge magnet playground (HTML5 & nodejs + express + nowjs)
+# A fridge magnet experiment using nodejs, express, nowjs
 
-This is a test project on fridge.syndr0m.com, Have fun
+Try it on fridge.locuspokus.com
 
 ## License
 

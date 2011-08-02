@@ -1,3 +1,9 @@
+/*!
+ * Fridge - A fridge magnet experiment using nodejs & nowjs.
+ * Copyright(c) 2010 Marc Dassonneville <marc.dassonneville@gmail.com>
+ * MIT Licensed
+ */
+
 var express = require('express')
 	, nowjs = require('now')
 	, server = express.createServer();
