@@ -78,7 +78,7 @@ everyone.now.acquireMagnet = function (magnetId) {
 		// reseting owner
 		m.owner = null;
 		// sending order to disable drag&drop on magnet
-		console.log(new Date()+'=> client '+this.user.clientId+' magnetLost('+m.id+')');
+		console.log(new Date()+'=> client '+userId+' magnetLost('+m.id+')');
 		userNow.magnetLost(m.id);
 	});
 	// acquiring magnet
@@ -86,7 +86,7 @@ everyone.now.acquireMagnet = function (magnetId) {
 	{
 		// sending order to enable drag&drop on magnet
 		magnetsById[magnetId].owner = userId;
-		console.log(new Date()+'=> client '+this.user.clientId+' magnetAcquired('+magnetId+')');
+		console.log(new Date()+'=> client '+userId+' magnetAcquired('+magnetId+')');
 		userNow.magnetAcquired(magnetId);
 	}
 };
