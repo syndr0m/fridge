@@ -1,6 +1,11 @@
-# A fridge magnet experiment using nodejs, express, nowjs
+# A fridge magnet experiment using [nodejs](http://nodejs.org/), [express](http://expressjs.com/), [nowjs](http://nowjs.com/)
 
-Try it on fridge.locuspokus.com
+Try it on [http://fridge.locuspokus.com](http://fridge.locuspokus.com).
+
+## Experiment
+
+Open two tabs/windows on [http://fridge.locuspokus.com](http://fridge.locuspokus.com).
+Move the letters on the first window, you should see them moving on the second one.
 
 ## License
 
