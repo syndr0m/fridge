@@ -62,7 +62,7 @@ everyone.now.moveMagnet = function (magnetId, top, left) {
 	console.log(new Date()+'<= client '+this.user.clientId+' moveMagnet('+magnetId+', '+top+', '+left+')');
 	magnetsById[magnetId].top = top;
 	magnetsById[magnetId].left = left; 
-	everyone.now.updateMagnet(magnetId, top, left);
+	everyone.exclude([this.user.clientId]).now.updateMagnet(magnetId, top, left);
 };
 
 // semaphore: acquireMagnet/releaseMagnet prevent several users 
