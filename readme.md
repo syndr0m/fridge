@@ -5,7 +5,8 @@ Try it on [http://fridge.locuspokus.com](http://fridge.locuspokus.com).
 ## Experiment
 
 Open two tabs/windows on [http://fridge.locuspokus.com](http://fridge.locuspokus.com).
-Move the letters on the first window, you should see them moving on the second one.
+
+Move the letters (drag&drop) on the first window, you should see them moving on the second one.
 
 ## License
 
